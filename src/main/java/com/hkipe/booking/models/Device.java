@@ -17,4 +17,6 @@ public class Device {
 
     private String modelNumber;
 
+    private boolean occupied;
+
 }

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=booking-width, initial-scale=1">
     <meta name="description" content="">
     <title>Booking System</title>
 
@@ -42,25 +42,27 @@
     <div class="b-example-divider"></div>
 
     <div class="p-5">
-        <h2>Devices List</h2>
-        <a href="/create-device" class="btn btn-primary">Create Device</a>
+        <h2>Bookings List</h2>
+<!--        <a href="/create-booking" class="btn btn-primary">Create Booking</a>-->
         <table id="myTable" class="display">
+
             <thead>
             <tr>
-                <th>Device Serial No.</th>
-                <th>Device Model</th>
-                <th>Occupied</th>
-                <th>Action</th>
+                <th>Username</th>
+                <th>Serial Number</th>
+                <th>Model</th>
+                <th>Start</th>
+                <th>End</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="device : ${devices}">
-                <td th:text="${device.serialNumber}"></td>
-                <td th:text="${device.modelNumber}"></td>
-                <td>
-                    <span th:text="${device.occupied ? 'Yes' : 'No'}" th:classappend="${device.occupied ? 'badge bg-success' : 'badge bg-danger'}"></span>
-                </td>
-                <td><a th:href="@{/edit-device/{id}(id=${device.id})}" class="btn btn-primary">Edit</a></td>
+            <tr th:each="booking : ${bookings}">
+                <td th:text="${booking.user.username}"></td>
+                <td th:text="${booking.device.serialNumber}"></td>
+                <td th:text="${booking.device.modelNumber}"></td>
+                <td th:text="${booking.startDate}"></td>
+                <td th:text="${booking.endDate}"></td>
+<!--                <td><a th:href="@{/edit-booking/{id}(id=${booking.id})}" class="btn btn-primary">Edit</a></td>-->
             </tr>
             </tbody>
         </table>

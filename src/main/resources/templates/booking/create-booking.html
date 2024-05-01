@@ -41,29 +41,32 @@
 
     <div class="b-example-divider"></div>
 
-    <div class="p-5">
-        <h2>Devices List</h2>
-        <a href="/create-device" class="btn btn-primary">Create Device</a>
-        <table id="myTable" class="display">
-            <thead>
-            <tr>
-                <th>Device Serial No.</th>
-                <th>Device Model</th>
-                <th>Occupied</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="device : ${devices}">
-                <td th:text="${device.serialNumber}"></td>
-                <td th:text="${device.modelNumber}"></td>
-                <td>
-                    <span th:text="${device.occupied ? 'Yes' : 'No'}" th:classappend="${device.occupied ? 'badge bg-success' : 'badge bg-danger'}"></span>
-                </td>
-                <td><a th:href="@{/edit-device/{id}(id=${device.id})}" class="btn btn-primary">Edit</a></td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="container p-5">
+        <h1>Create Booking</h1>
+
+        <form th:action="@{/create-booking}" method="post">
+
+            <div class="form-group">
+                <label for="device">Device:</label>
+                <select id="device" name="deviceId" class="form-control" required>
+                    <option disabled value="">Select a device</option>
+                    <option th:each="device : ${devices}" th:value="${device.id}" th:text="${device.serialNumber + ' (' + device.modelNumber} + ')'"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="startDate">Start Date and Time:</label>
+                <input type="datetime-local" id="startDate" name="startDate" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="endDate">End Date and Time:</label>
+                <input type="datetime-local" id="endDate" name="endDate" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="/devices" class="btn btn-danger">Cancel</a>
+        </form>
     </div>
 </main>
 
