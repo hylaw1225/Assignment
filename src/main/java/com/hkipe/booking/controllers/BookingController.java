@@ -70,7 +70,7 @@ public class BookingController {
     }
 
     @GetMapping("/booking/{id}/pickup")
-    public String pickup(@PathVariable Long id) {
+    public String bookingPickup(@PathVariable Long id) {
         var booking = bookingRepository.findById(id).get();
         var device = booking.getDevice();
         if (!device.isOccupied()) {
@@ -80,6 +80,20 @@ public class BookingController {
             bookingRepository.save(booking);
             deviceRepository.save(device);
         }
+
+        return "redirect:/all-bookings";
+    }
+
+    @GetMapping("/booking/{id}/return")
+    public String bookingReturn(@PathVariable Long id) {
+        var booking = bookingRepository.findById(id).get();
+        var device = booking.getDevice();
+
+        booking.setReturned(true);
+        device.setOccupied(false);
+
+        bookingRepository.save(booking);
+        deviceRepository.save(device);
 
         return "redirect:/all-bookings";
     }
