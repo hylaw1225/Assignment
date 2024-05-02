@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.sql.Timestamp;
@@ -66,5 +67,20 @@ public class BookingController {
         bookingRepository.save(booking);
 
         return "redirect:/my-bookings";
+    }
+
+    @GetMapping("/booking/{id}/pickup")
+    public String pickup(@PathVariable Long id) {
+        var booking = bookingRepository.findById(id).get();
+        var device = booking.getDevice();
+        if (!device.isOccupied()) {
+            booking.setPickedUp(true);
+            device.setOccupied(true);
+
+            bookingRepository.save(booking);
+            deviceRepository.save(device);
+        }
+
+        return "redirect:/all-bookings";
     }
 }

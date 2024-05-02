@@ -53,6 +53,7 @@
                 <th>Model</th>
                 <th>Start</th>
                 <th>End</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -62,7 +63,10 @@
                 <td th:text="${booking.device.modelNumber}"></td>
                 <td th:text="${booking.startDate}"></td>
                 <td th:text="${booking.endDate}"></td>
-<!--                <td><a th:href="@{/edit-booking/{id}(id=${booking.id})}" class="btn btn-primary">Edit</a></td>-->
+                <td>
+                    <a th:href="@{/booking/{id}/pickup(id=${booking.id})}" class="btn btn-info">Pickup</a>
+                    <a th:href="@{/booking/{id}/return(id=${booking.id})}" class="btn btn-primary">Return</a>
+                </td>
             </tr>
             </tbody>
         </table>
