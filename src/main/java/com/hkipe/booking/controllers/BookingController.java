@@ -73,7 +73,7 @@ public class BookingController {
     public String bookingPickup(@PathVariable Long id) {
         var booking = bookingRepository.findById(id).get();
         var device = booking.getDevice();
-        if (!device.isOccupied()) {
+        if (!device.isOccupied() && !booking.isPickedUp()) {
             booking.setPickedUp(true);
             device.setOccupied(true);
 
@@ -89,11 +89,13 @@ public class BookingController {
         var booking = bookingRepository.findById(id).get();
         var device = booking.getDevice();
 
-        booking.setReturned(true);
-        device.setOccupied(false);
+        if (booking.isPickedUp()) {
+            booking.setReturned(true);
+            device.setOccupied(false);
 
-        bookingRepository.save(booking);
-        deviceRepository.save(device);
+            bookingRepository.save(booking);
+            deviceRepository.save(device);
+        }
 
         return "redirect:/all-bookings";
     }

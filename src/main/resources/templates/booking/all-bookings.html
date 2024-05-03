@@ -64,8 +64,8 @@
                 <td th:text="${booking.startDate}"></td>
                 <td th:text="${booking.endDate}"></td>
                 <td>
-                    <a th:href="@{/booking/{id}/pickup(id=${booking.id})}" class="btn" th:classappend="${booking.device.occupied ? 'disabled' : 'btn-success' }">Pickup</a>
-                    <a th:href="@{/booking/{id}/return(id=${booking.id})}" class="btn btn-primary">Return</a>
+                    <a th:href="@{/booking/{id}/pickup(id=${booking.id})}" class="btn" th:classappend="${!booking.device.occupied && !booking.pickedUp ? 'btn-success' : 'disabled' }">Pickup</a>
+                    <a th:href="@{/booking/{id}/return(id=${booking.id})}" class="btn" th:classappend="${booking.pickedUp && !booking.returned ? 'btn-primary' : 'disabled' }">Return</a>
                 </td>
             </tr>
             </tbody>
