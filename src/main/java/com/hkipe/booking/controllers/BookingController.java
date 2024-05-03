@@ -89,7 +89,7 @@ public class BookingController {
         var booking = bookingRepository.findById(id).get();
         var device = booking.getDevice();
 
-        if (booking.isPickedUp()) {
+        if (booking.isPickedUp() && !booking.isReturned()) {
             booking.setReturned(true);
             device.setOccupied(false);
 
